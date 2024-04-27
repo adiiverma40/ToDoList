@@ -79,18 +79,11 @@ transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
     color: #040f16;
     margin-top: 5px;
     text-transform: capitalize;
-    
-    /* style added for experiment */
-    /* background-color: rgba(22, 80, 216, 0.1); */
-
-
-
 }
 #taskList li:hover{
     cursor: pointer;
 }
 .delete{
-    /* display: block; */
     margin: 5px;
 }
  .completed{
