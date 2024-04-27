@@ -1,17 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ToDOList</title>
-    <link rel="stylesheet" href="src/style.css">
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="src/style.css">
+  <title>ToDo-List</title>
 </head>
 <body>
-  
-    
-
-
+    <header>
+       <div> <h3>TO DO List</h3>
+        <p>Your personal ToDo-List App </p>
+      </div>
+    </header>
+    <main>
+      <div>
+        <form>
+          <input type="text" placeholder="Add a task" id="task">
+          <button id="taskButton" type="submit">Add</button>
+        </form>
+      </div>
+      <div id="tasks">
+        <ol id="taskList">
+         
+         </ol>
+      </div>
+    </main>
 
     <script src="src/script.js"></script>
 </body>
