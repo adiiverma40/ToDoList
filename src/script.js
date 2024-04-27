@@ -1,110 +1,54 @@
-////DOM variable declaration
+// DOM variable 
+const orderList = document.querySelector("#taskList");
+const form = document.querySelector("form");
 
-let taskLists = document.querySelector("#taskList");
-let form = document.querySelector("form");
-
-
-
-// onwindow load 
-document.addEventListener("DOMContentLoaded", () => {
-    // loadTasks();
+window.addEventListener("load",() =>{
+    LoadTask();
 });
 
-
-form.addEventListener("submit", (event) => {
-    createTaskList();
-    event.preventDefault();
+form.addEventListener("submit", function(e){
+    e.preventDefault();
+    createTask();
 });
 
-function loadTasks(){
-    
-}
+//load the previous task 
 
-function createTaskList(){
-    let taskList = document.querySelector("#task").value.trim();
-    if (taskList !== '') { // Check if the task text is not empty
-        let newTask = document.createElement("li");
-        newTask.innerText = taskList;
-        newTask.style.textTransform = "capitalize";
-        taskLists.appendChild(newTask);
-        document.querySelector("#task").value = "";
-        document.querySelector("#task").placeholder = "Add another Task";
-        saveTasks(taskList)
+function LoadTask(){
+    let task = [];
+    let storedTask = localStorage.getItem("task");
+    if (storedTask){
+        task = JSON.parse(storedTask);
+        task.forEach(tasks => {
+            const newTask = document.createElement("li");
+            newTask.textContent = tasks;
+            newTask.style.textTransform = "capitalize";
+            orderList.appendChild(newTask);
+        });
     }
-    else {
-        alert("You must write something!");
-        return;
+}
+
+// function to create a new task
+function createTask(){
+    const newTask = document.createElement("li");
+    const taskText = document.querySelector("#task");
+    newTask.textContent = taskText.value.trim();
+    newTask.style.textTransform = "capitalize";
+    orderList.appendChild(newTask);
+    
+    //saving the task
+    let task = [];
+    let storedTask = localStorage.getItem("task");
+    if(storedTask){
+        task = JSON.parse(storedTask);
     }
-    
+    task.push(taskText.value.trim());
+    saveTask(task);
+    taskText.value = "";
+    taskText.placeholder = "Add Another Task";
 }
 
-function saveTasks(taskList) {
-    // Convert the array of tasks to a JSON string and store it in localStorage
-    localStorage.setItem('tasks', JSON.stringify(taskList));
+// save the task in local storage 
+
+function saveTask(taskVar){
+    localStorage.setItem("task", JSON.stringify(taskVar));
 }
-
-
-
-
-
-
-
-
-
-
-//   function loadTasks() {
-//     const taskList = document.getElementById('taskList');
-//     taskList.innerHTML = ''; // Clear existing tasks
-    
-//     // Check if there are any existing tasks in localStorage
-//     const storedTasks = localStorage.getItem('tasks');
-//     console.log(storedTasks)
-//     if (storedTasks) {
-//       // Parse the JSON string stored in localStorage and convert it back to an array
-//       const tasks = JSON.parse(storedTasks);
-      
-//       // Loop through the array of tasks and create list items for each
-//       tasks.forEach(function(taskText) {
-//         createTaskElement(taskText);
-//       });
-//     }
-//   }
-  
-//   function addTask() {
-//     const taskInput = document.getElementById('taskInput');
-//     const taskText = taskInput.value.trim();
-    
-//     if (taskText === '') {
-//       alert("You must write something!");
-//       return;
-//     }
-    
-//     createTaskElement(taskText);
-//     saveTasks();
-//     taskInput.value = '';
-//   }
-  
-//   function createTaskElement(taskText) {
-//     const taskList = document.getElementById('taskList');
-//     const li = document.createElement('li');
-//     li.textContent = taskText;
-    
-//     // Toggle 'completed' class on click
-//     li.addEventListener('click', function() {
-//       this.classList.toggle('completed');
-//       saveTasks();
-//     });
-    
-//     taskList.appendChild(li);
-//   }
-  
-//   function saveTasks() {
-//     const tasks = [];
-//     // Get all existing tasks
-//     const taskItems = document.querySelectorAll('#taskList li');
-//     taskItems.forEach(function(item) {
-//       tasks.push(item.textContent);
-//     });
-//     // Save tasks to localStorage as a JSON string
-//     localStorage.setItem('tasks', JSON.stringify(tasks));
-//   }
